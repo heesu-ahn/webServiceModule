@@ -47,7 +47,7 @@ public class requestInterceptor implements HandlerInterceptor {
 				} 
 			} else if("POST".equals(request.getMethod())) {
 				
-				if(method.getMethod().getName().contains("getInfo")) {					
+				if(method.getMethod().getName().contains("setInfo")) {					
 					getRequestBody(request);
 				} else if(method.getMethod().getName().contains("getAuthorization")) {
 					getAuthorization(request);

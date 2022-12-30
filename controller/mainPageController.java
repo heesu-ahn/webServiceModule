@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,23 +21,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.webModule.webService.exception.GlobalExeptionHandler;
+import com.webModule.webService.interceptor.requestInterceptor;
 import com.webModule.webService.service.autoInputService;
 import com.webModule.webService.service.dtoService;
+import com.webModule.webService.service.mainPageService;
 import com.webModule.webService.vo.HumanResourceVo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/main")
 public class mainPageController {
-	@GetMapping("/test")
-	public void test() {
+	
+	private static final Logger log = LoggerFactory.getLogger(mainPageController.class);
+	
+	@Autowired
+	mainPageService mainPageService;
+	
+	@GetMapping("/user")
+	public void getInfo() {
 		
 	}
 	
-	@PostMapping("/info")
-	public void getInfo() {
-		extractMapData();
-		return;
+	@PostMapping("/user")
+	public ResponseEntity<?> setInfo() {
+		return mainPageService.extractMapData();
 	}
 	
 	@PostMapping("/auth")
@@ -43,20 +53,4 @@ public class mainPageController {
 		return;
 	}
 	
-	
-	private void extractMapData() {
-		@SuppressWarnings("unchecked")
-		ArrayList<HashMap<String, Object>> map = (ArrayList<HashMap<String, Object>>)dtoService.getData().get("result");
-		HumanResourceVo hVo = new HumanResourceVo();
-		Object vo;
-		try {
-			vo = autoInputService.autoInputVoService(hVo.getClass(),map);
-			if(vo != null) hVo = (HumanResourceVo)vo;
-			System.out.println(hVo.toString());
-		} catch (NoSuchMethodError | IllegalAccessException | InstantiationException | InvocationTargetException
-				| NoSuchFieldException | SecurityException | IllegalArgumentException | NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		return;
-	}
 }

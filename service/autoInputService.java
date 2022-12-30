@@ -11,7 +11,8 @@ public class autoInputService {
 	public static <T> Object autoInputVoService(Class<T> cls, ArrayList<HashMap<String, Object>> map)
 			throws IllegalAccessException, InstantiationException, NoSuchMethodError, InvocationTargetException,
 			NoSuchFieldException, SecurityException, IllegalArgumentException, NoSuchMethodException {
-		T instance = cls.getConstructor().newInstance();			
+		T instance = cls.getConstructor().newInstance();
+		
 		for(int i = 0; i < map.size(); i++) {
 			HashMap<String, Object> element = map.get(i);
 			Set<String> ks = element.keySet();
