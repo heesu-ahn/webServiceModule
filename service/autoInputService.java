@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-public class autoInputService {
+public class AutoInputService {
 	public static <T> Object autoInputVoService(Class<T> cls, ArrayList<HashMap<String, Object>> map)
 			throws IllegalAccessException, InstantiationException, NoSuchMethodError, InvocationTargetException,
 			NoSuchFieldException, SecurityException, IllegalArgumentException, NoSuchMethodException {
