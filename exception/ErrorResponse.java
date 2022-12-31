@@ -13,11 +13,18 @@ public class ErrorResponse {
     private String code;
 
     public ErrorResponse(Throwable e){
-        this.setStatus("FAIL");
-        this.setMessage(e.toString());
-        this.setCode("");
+        this.setStatus(HttpStatus.BAD_REQUEST.name());
+        this.setMessage(getErrorMessageByType(e));
+        this.setCode(String.valueOf(HttpStatus.BAD_REQUEST.value()));
     }
-    public ErrorResponse RaiseError() {
+    private String getErrorMessageByType(Throwable e) {
+		String message = "";
+		if(e.getClass().equals(NoSuchFieldException.class)) {
+			message = String.format("Invalid Key Error : %s", e.getMessage());
+		}
+    	return message;
+	}
+	public ErrorResponse RaiseError() {
     	return this;
     }
 

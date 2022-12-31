@@ -2,7 +2,7 @@ package com.webModule.webService.data.service;
 
 import java.util.HashMap;
 
-import com.webModule.webService.controller.mainPageController;
+import com.webModule.webService.controller.LoginPageController;
 
 public class StringUtill {
 	
@@ -11,7 +11,7 @@ public class StringUtill {
 	protected Integer intNum = 0;
 	protected Float floatNum = 0f ;
 	private HashMap<String, Object> data = new HashMap<>();
-	public static LoggingService logSvc = new LoggingService(mainPageController.class,"");
+	public static LoggingService logSvc = new LoggingService(LoginPageController.class,"");
 	StringUtill(String str, Integer intNum, Float floatNum){
 		this.str = str;
 		this.intNum = intNum;

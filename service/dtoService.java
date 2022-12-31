@@ -12,14 +12,14 @@ import org.slf4j.LoggerFactory;
 import com.webModule.webService.data.service.DataParsingUtill;
 
 
-public class dtoService {
+public class DtoService {
 	private static String strTest = "";
 	private static Integer intTest = 0;
 	private static Float floatTest = 0f;
 	private static DataParsingUtill dUtill = new DataParsingUtill(strTest,intTest,floatTest);
 	private static HashMap<String, Object> data;
 	
-	private static final Logger log = LoggerFactory.getLogger(dtoService.class);
+	private static final Logger log = LoggerFactory.getLogger(DtoService.class);
 	public static HashMap<String, Object> dtoClass(HashMap<String, Object> reqBody) {
 		 HashMap<String, Object> resultBody = new HashMap();
 		 ArrayList<HashMap<String, Object>> result = new ArrayList();
@@ -78,6 +78,6 @@ public class dtoService {
 		return data;
 	}
 	public static void setData(HashMap<String, Object> data) {
-		dtoService.data = data;
+		DtoService.data = data;
 	}
 }

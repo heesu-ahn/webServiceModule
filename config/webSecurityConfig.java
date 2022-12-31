@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-public class webSecurityConfig {
+public class WebSecurityConfig {
 	
 	@SuppressWarnings("deprecation")
 	@Bean

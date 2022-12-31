@@ -15,7 +15,7 @@ public class HumanResourceVo {
 				+ ", jobPosition=" + jobPosition + ", employmentStatus=" + employmentStatus + ", previousCompanies="
 				+ Arrays.toString(previousCompanies) + ", birthDay=" + birthDay + ", birthDate=" + birthDate
 				+ ", employmentDate=" + employmentDate + ", departureDate=" + departureDate + ", birthYear=" + birthYear
-				+ ", age=" + age + ", careear=" + careear + ", wight=" + wight + ", height=" + height + "]";
+				+ ", age=" + age + ", careear=" + careear + ", weight=" + weight + ", height=" + height + "]";
 	}
 	protected String loginIP;				// 로그인 IP
 	protected String loginId;				// 로그인 ID
@@ -45,7 +45,7 @@ public class HumanResourceVo {
 	protected Integer birthYear; 			// 생년
 	protected Integer age; 					// 나이
 	protected Integer careear; 				// 경력 총합
-	protected Float wight;					// 체중
+	protected Float weight;					// 체중
 	protected Float height; 				// 신장
 	
 	/**
@@ -387,14 +387,14 @@ public class HumanResourceVo {
 	/**
 	 * @return the wight
 	 */
-	protected Float getWight() {
-		return wight;
+	protected Float getWeight() {
+		return weight;
 	}
 	/**
 	 * @param wight the wight to set
 	 */
-	protected void setWight(Float wight) {
-		this.wight = wight;
+	protected void setWeight(Float weight) {
+		this.weight = weight;
 	}
 	/**
 	 * @return the height

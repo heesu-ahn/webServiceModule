@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.webModule.webService.service.dtoService;
+import com.webModule.webService.service.DtoService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,10 +27,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class requestInterceptor implements HandlerInterceptor {
+public class RequestInterceptor implements HandlerInterceptor {
 
-	private static final Logger log = LoggerFactory.getLogger(requestInterceptor.class);
-	private dtoService service;
+	private static final Logger log = LoggerFactory.getLogger(RequestInterceptor.class);
+	private DtoService service;
 	private ArrayList<HashMap<String, Object>> data = new ArrayList<>();
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -75,7 +75,7 @@ public class requestInterceptor implements HandlerInterceptor {
 	
 	public void getRequestParams(HttpServletRequest request) {
 		try {			
-			service = new dtoService();
+			service = new DtoService();
 			if(request != null) {			
 				Enumeration<String> params = request.getParameterNames();
 				while (params.hasMoreElements()) {
@@ -93,7 +93,7 @@ public class requestInterceptor implements HandlerInterceptor {
 		}
 	}
 	public void getRequestBody(HttpServletRequest request) {
-		service = new dtoService();
+		service = new DtoService();
 		StringBuilder builder = new StringBuilder();
 		String line = "";
 					
