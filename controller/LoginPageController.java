@@ -16,19 +16,19 @@ public class LoginPageController {
 	@Autowired
 	BasicResponseService responseService;
 	
-	@GetMapping("/signIn")
-	public void getInfo() {
-		
+	@GetMapping("/signIn") // id & password 로 jwt 를 생성
+	public ResponseEntity<?> getInfo() {
+		return responseService.extractParameterHumanResource("signIn");
 	}
 	
-	@PostMapping("/signUp")
+	@PostMapping("/signUp") // 사용자 정보 저장 후 id & password 로 jwt 를 생성
 	public ResponseEntity<?> setInfo() {
-		return responseService.extractHumanMapData();
+		return responseService.extractReqeustBodyHumanResource();
 	}
 	
-	@PostMapping("/auth")
-	public void getAuthorization() {
-		return;
+	@PostMapping("/auth") // signIn 이후 Authrization 인증키로 세션을 관리
+	public ResponseEntity<?> getAuthorization() {
+		return responseService.extractJwt("auth");
 	}
 	
 }

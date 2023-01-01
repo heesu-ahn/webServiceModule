@@ -1,6 +1,7 @@
 package com.webModule.webService.interceptor;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -73,19 +74,20 @@ public class RequestInterceptor implements HandlerInterceptor {
 		HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
 	}
 	
-	public void getRequestParams(HttpServletRequest request) {
+	public void getRequestParams(HttpServletRequest request) throws EOFException {
 		try {			
 			service = new DtoService();
 			if(request != null) {			
 				Enumeration<String> params = request.getParameterNames();
+				HashMap<String, Object> map = new HashMap<>();
 				while (params.hasMoreElements()) {
 					String param = (String) params.nextElement();
-					HashMap<String, Object> map = new HashMap<>();
 					map.put(param, request.getParameter(param));
-					if(map != null) {						
-						data = (ArrayList<HashMap<String, Object>>)service.dtoClass(map).get("result");
-						request.setAttribute("data", data);
-					}
+				}
+				if(map != null) {						
+					System.out.println(map);
+					data = (ArrayList<HashMap<String, Object>>)service.dtoClass(map).get("result");
+					request.setAttribute("data", data);
 				}
 			}
 		} catch (Exception e) {
@@ -122,7 +124,10 @@ public class RequestInterceptor implements HandlerInterceptor {
 		Object auth = request.getHeader("Authorization");
 		if(auth != null) {
 			String authKey = auth.toString().split(" ")[1];
-			System.out.println(authKey);
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("result", authKey);
+			data = (ArrayList<HashMap<String, Object>>)service.dtoClass(map).get("result");
+			request.setAttribute("data", data);
 		}
 	}
 
