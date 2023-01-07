@@ -28,7 +28,7 @@ public class LoginPageController {
 	
 	@PostMapping("/auth") // signIn 이후 Authrization 인증키로 세션을 관리
 	public ResponseEntity<?> getAuthorization() {
-		return responseService.extractJwt("auth");
+		return responseService.extractJwt();
 	}
 	
 }

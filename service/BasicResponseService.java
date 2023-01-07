@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.webModule.webService.data.valuesManger.NullCheckUtill;
 import com.webModule.webService.exception.GlobalExeptionHandler;
 import com.webModule.webService.vo.HumanResource;
 
@@ -33,32 +34,43 @@ public class BasicResponseService {
 		@SuppressWarnings("unchecked")
 		ArrayList<HashMap<String, Object>> map = (ArrayList<HashMap<String, Object>>)DtoService.getData().get("result");
 		Object vo;
+		ResponseEntity<?> response = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		try {
 			vo = AutoInputService.autoInputVoService(humanResource.getClass(),map);
 			if(vo != null) humanResource = (HumanResource)vo;
 		} catch (NoSuchMethodError | IllegalAccessException | InstantiationException | InvocationTargetException
 				| NoSuchFieldException | SecurityException | IllegalArgumentException | NoSuchMethodException e) {			
-			return globalExeptionHandler.handleNoSuchElementFoundException(e);
-			
+			return globalExeptionHandler.handleNoSuchElementFoundException(e);			
 		}
-		HashMap<String, Object> returnValue = new HashMap<>();
-
 		if(!"".equals(url)) {
-			if(url.equals("signIn")) {
-				String loginID = humanResource.getLoginID();
-				String passwrd = humanResource.getPassword();
-				jwtToken = jwtManagerService.generateToken(loginID, passwrd);
-				returnValue.put("accessToken", jwtToken);
-			} else if(url.equals("auth")) {
-				System.out.println(map);
+			if(url.endsWith("signIn")) {
+				response = sendAccessToken();
 			}
-		} else {
-			returnValue.put("result", "SUCCESS");
+		} 
+		return response;					
+	}
+	
+	public ResponseEntity<?> sendAccessToken() {
+		HashMap<String, Object> returnValue = new HashMap<>();
+		String loginID = humanResource.getLoginID();
+		String passwrd = humanResource.getPassword();
+		
+		NullCheckUtill nullChk = new NullCheckUtill();
+		if(nullChk.NullCheck(loginID)) {				
+			Exception e = new Exception("loginID is Null.");
+			return globalExeptionHandler.handleNoSuchElementFoundException(e);
+		} 
+		if(nullChk.NullCheck(passwrd)) {				
+			Exception e = new Exception("passwrd is Null.");
+			return globalExeptionHandler.handleNoSuchElementFoundException(e);
 		}
+		
+		jwtToken = jwtManagerService.generateToken(loginID, passwrd);
+		returnValue.put("accessToken", jwtToken);
 		return new ResponseEntity<HashMap<String, Object>>(returnValue, HttpStatus.OK);
 	}
 	
-	public ResponseEntity<?> extractJwt(String url) {
+	public ResponseEntity<?> extractJwt() {
 		@SuppressWarnings("unchecked")
 		ArrayList<HashMap<String, Object>> map = (ArrayList<HashMap<String, Object>>)DtoService.getData().get("result");
 		HashMap<String, Object> returnValue = new HashMap<>();

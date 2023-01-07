@@ -21,6 +21,8 @@ public class ErrorResponse {
 		String message = "";
 		if(e.getClass().equals(NoSuchFieldException.class)) {
 			message = String.format("Invalid Key Error : %s", e.getMessage());
+		} else {
+			message = e.getMessage();
 		}
     	return message;
 	}
