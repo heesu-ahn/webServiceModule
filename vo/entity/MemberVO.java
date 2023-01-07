@@ -8,4 +8,7 @@ import javax.persistence.*;
 @Entity(name = "member")
 public class MemberVO {
 
+	
+	
+	
 }
